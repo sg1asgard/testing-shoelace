@@ -1,18 +1,31 @@
 <script setup>
-import { ref, reactive } from "vue";
+import { ref, reactive, onMounted, watch } from "vue";
 
 const name = ref("");
 const familyName = ref("");
 const gender = ref("");
+const comments = ref("");
 
 const formData = reactive({
   name: name,
   family_name: familyName,
   gender: gender,
+  comments: comments,
 });
 const submitForm = () => {
   console.log("form is submitted");
 };
+
+const formref = ref(null);
+let select = ref(document.querySelector("sl-select"));
+const getSelectedStuff = () => {
+  console.log("slect stuff", select.value);
+};
+
+
+onMounted(() => {
+  console.log(formref.value.children[3]);
+});
 </script>
 
 <template>
@@ -29,14 +42,26 @@ const submitForm = () => {
         v-model="familyName"
       ></sl-input>
       <br />
-      <sl-select label="Gender" clearable required v-model="gender">
+
+      <sl-select
+        id="slSelect"
+        label="Gender"
+        clearable
+        required
+        ref="formref"
+      >
         <sl-option value="birds">Birds</sl-option>
         <sl-option value="cats">Cats</sl-option>
         <sl-option value="dogs">Dogs</sl-option>
         <sl-option value="other">Other</sl-option>
       </sl-select>
       <br />
-      <sl-textarea name="comment" label="Comment" required></sl-textarea>
+      <sl-textarea
+        name="comment"
+        label="Comment"
+        required
+        v-model="comments"
+      ></sl-textarea>
       <br />
       <sl-checkbox required>Check me before submitting</sl-checkbox>
       <br /><br />
