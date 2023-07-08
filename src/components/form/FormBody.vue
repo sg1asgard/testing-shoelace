@@ -1,15 +1,17 @@
 <script setup>
-import { ref, reactive, onMounted, watch } from "vue";
+import { ref, reactive, onMounted, computed } from "vue";
 
-const name = ref("Dude");
+const name = ref("");
 const familyName = ref("");
 const gender = ref("");
+const genderType = ref("");
 const comments = ref("");
 
 const formData = reactive({
   name: name,
   family_name: familyName,
   gender: gender,
+  gender_type: genderType,
   comments: comments,
 });
 
@@ -20,12 +22,20 @@ const submitForm = () => {
 const inputName = ref(null);
 const formref = ref(null);
 
+const showType = ref(false);
 const getSelectedStuff = () => {
   let select = document.getElementById("slSelect");
 
   select.addEventListener("click", () => {
     console.log(formref.value.value);
     gender.value = formref.value.value;
+
+    if (gender.value == "other") {
+      showType.value = true;
+    } else {
+      showType.value = false;
+      genderType.value = "";
+    }
   });
 
 };
@@ -55,12 +65,29 @@ onMounted(() => {});
       ></sl-input>
       <br />
 
-      <sl-select id="slSelect" label="Gender" clearable required ref="formref" @click="getSelectedStuff()">
-        <sl-option value="birds">Birds</sl-option>
-        <sl-option value="cats">Cats</sl-option>
-        <sl-option value="dogs">Dogs</sl-option>
+      <sl-select
+        id="slSelect"
+        label="Gender"
+        clearable
+        required
+        ref="formref"
+        @click="getSelectedStuff()"
+      >
+        <sl-option value="male">male</sl-option>
+        <sl-option value="female">female</sl-option>
         <sl-option value="other">Other</sl-option>
       </sl-select>
+      <br />
+
+      <sl-input
+        name="gender_option"
+        label="your gender"
+        required
+        id="genderName"
+        v-if="showType"
+        v-model="genderType"
+      ></sl-input>
+
       <br />
       <sl-textarea
         name="comment"
