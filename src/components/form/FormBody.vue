@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted, watch } from "vue";
 
-const name = ref("");
+const name = ref("Dude");
 const familyName = ref("");
 const gender = ref("");
 const comments = ref("");
@@ -16,15 +16,17 @@ const submitForm = () => {
   console.log("form is submitted");
 };
 
+const inputName = ref(null);
 const formref = ref(null);
 let select = ref(document.querySelector("sl-select"));
 const getSelectedStuff = () => {
   console.log("slect stuff", select.value);
+  inputName.value.focus();
 };
-
 
 onMounted(() => {
   console.log(formref.value.children[3]);
+  console.log(inputName.value.value);
 });
 </script>
 
@@ -33,7 +35,13 @@ onMounted(() => {
     <pre>{{ formData }}</pre>
     <br />
     <form @submit.prevent="submitForm" class="input-validation-required">
-      <sl-input name="name" label="Name" required v-model="name"></sl-input>
+      <sl-input
+        name="name"
+        label="Name"
+        required
+        v-model="name"
+        ref="inputName"
+      ></sl-input>
       <br />
       <sl-input
         name="family_name"
@@ -43,13 +51,7 @@ onMounted(() => {
       ></sl-input>
       <br />
 
-      <sl-select
-        id="slSelect"
-        label="Gender"
-        clearable
-        required
-        ref="formref"
-      >
+      <sl-select id="slSelect" label="Gender" clearable required ref="formref">
         <sl-option value="birds">Birds</sl-option>
         <sl-option value="cats">Cats</sl-option>
         <sl-option value="dogs">Dogs</sl-option>
