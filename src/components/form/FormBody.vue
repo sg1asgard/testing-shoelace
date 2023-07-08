@@ -26,8 +26,7 @@ const showType = ref(false);
 const getSelectedStuff = () => {
   let select = document.getElementById("slSelect");
 
-  select.addEventListener("click", () => {
-    console.log(formref.value.value);
+  select.addEventListener("sl-change", () => {
     gender.value = formref.value.value;
 
     if (gender.value == "other") {
