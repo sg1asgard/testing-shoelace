@@ -12,22 +12,25 @@ const formData = reactive({
   gender: gender,
   comments: comments,
 });
+
 const submitForm = () => {
   console.log("form is submitted");
 };
 
 const inputName = ref(null);
 const formref = ref(null);
-let select = ref(document.querySelector("sl-select"));
+
 const getSelectedStuff = () => {
-  console.log("slect stuff", select.value);
-  inputName.value.focus();
+  let select = document.getElementById("slSelect");
+
+  select.addEventListener("click", () => {
+    console.log(formref.value.value);
+    gender.value = formref.value.value;
+  });
+
 };
 
-onMounted(() => {
-  console.log(formref.value.children[3]);
-  console.log(inputName.value.value);
-});
+onMounted(() => {});
 </script>
 
 <template>
@@ -48,10 +51,11 @@ onMounted(() => {
         label="Family Name"
         required
         v-model="familyName"
+        id="familyName"
       ></sl-input>
       <br />
 
-      <sl-select id="slSelect" label="Gender" clearable required ref="formref">
+      <sl-select id="slSelect" label="Gender" clearable required ref="formref" @click="getSelectedStuff()">
         <sl-option value="birds">Birds</sl-option>
         <sl-option value="cats">Cats</sl-option>
         <sl-option value="dogs">Dogs</sl-option>
