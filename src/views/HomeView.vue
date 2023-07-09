@@ -11,7 +11,7 @@ import FormBody from "@/components/form/FormBody.vue";
 <style lang="scss" scoped>
 .ctx {
   &-body {
-    padding: 0px 32px 32px 32px;
+    padding: 32px;
   }
 }
 </style>
