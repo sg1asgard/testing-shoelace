@@ -24,18 +24,17 @@ const formref = ref(null);
 const showType = ref(false);
 const getSelectedGender = () => {
   let select = document.getElementById("slSelect");
-  setTimeout(() => {
-    select.addEventListener("sl-change", () => {
-      gender.value = formref.value.value;
 
-      if (gender.value == "other") {
-        showType.value = true;
-      } else {
-        showType.value = false;
-        genderType.value = null;
-      }
-    });
-  }, 10);
+  select.addEventListener("sl-change", () => {
+    gender.value = formref.value.value;
+
+    if (gender.value == "other") {
+      showType.value = true;
+    } else {
+      showType.value = false;
+      genderType.value = null;
+    }
+  });
 };
 
 const dialogOverview = ref(null);
@@ -167,8 +166,7 @@ onMounted(() => {});
       ></sl-textarea>
 
       <br />
-      <sl-checkbox required>Yes, I would like to stay informed.</sl-checkbox>
-      <br /><br />
+      <br />
       <sl-button type="submit" variant="primary" class="viu-button"
         >Submit</sl-button
       >
