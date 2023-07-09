@@ -32,7 +32,6 @@ const getSelectedGender = () => {
       genderType.value = "";
     }
   });
-
 };
 
 const submitForm = () => {
@@ -53,6 +52,7 @@ onMounted(() => {});
         required
         v-model="name"
         ref="inputName"
+        class="viu-input"
       ></sl-input>
       <br />
       <sl-input
@@ -61,6 +61,7 @@ onMounted(() => {});
         required
         v-model="familyName"
         id="familyName"
+        class="viu-input"
       ></sl-input>
       <br />
 
@@ -70,6 +71,7 @@ onMounted(() => {});
         clearable
         required
         ref="formref"
+        class="viu-select"
         @click="getSelectedGender()"
       >
         <sl-option value="male">male</sl-option>
@@ -79,10 +81,11 @@ onMounted(() => {});
       <br />
 
       <sl-input
-        name="gender_option"
-        label="your gender"
+        name="gbuttonender_option"
+        label="Your Gender"
         required
         id="genderName"
+        class="viu-input"
         v-if="showType"
         v-model="genderType"
       ></sl-input>
@@ -93,11 +96,15 @@ onMounted(() => {});
         label="Comment"
         required
         v-model="comments"
+        class="viu-input"
       ></sl-textarea>
+
       <br />
       <sl-checkbox required>Check me before submitting</sl-checkbox>
       <br /><br />
-      <sl-button type="submit" variant="primary">Submit</sl-button>
+      <sl-button type="submit" variant="primary" class="viu-button"
+        >Submit</sl-button
+      >
     </form>
   </div>
 </template>
@@ -108,5 +115,37 @@ onMounted(() => {});
   padding: 42px 0px;
   max-width: 680px;
   border-top: 1px solid lightslategray;
+}
+
+.viu-button::part(base) {
+  background: var(--sl-color-neutral-0);
+  border: solid 1px $black;
+  border-radius: 0;
+}
+
+.viu-button::part(base):hover {
+  background: var(--sl-color-gray-950);
+  color: $white;
+}
+
+.viu-button::part(base):active {
+  background: var(--sl-color-gray-950);
+  color: $white;
+}
+
+.viu-button::part(label) {
+  color: var(--sl-color-gray-950);
+}
+.viu-button::part(label):hover {
+  color: var(--sl-color-gray-950);
+  color: $white;
+}
+
+.viu-input::part(base) {
+  border-radius: 0;
+}
+
+.viu-select::part(combobox) {
+  border-radius: 0;
 }
 </style>
