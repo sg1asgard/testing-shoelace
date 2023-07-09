@@ -45,6 +45,11 @@ onMounted(() => {});
   <div class="body-form">
     <pre>{{ formData }}</pre>
     <br />
+    
+    <!-- <div class="viu-glasses"></div>
+    <h1 class="title">the pioneer</h1>
+    <h2 class="subtitle">Would you like to know more?</h2> -->
+
     <form @submit.prevent="submitForm" class="input-validation-required">
       <sl-input
         name="name"
@@ -113,8 +118,28 @@ onMounted(() => {});
 .body-form {
   margin: auto;
   padding: 42px 0px;
-  max-width: 680px;
+  max-width: 690px;
   border-top: 1px solid lightslategray;
+}
+
+.viu-glasses {
+  width: 100%;
+  height: 360px;
+  margin-bottom: 32px;
+  background: url("https://production-presta-media.shopviu.com/img/product/557/977-the-pioneer-star-gold-black_front_3840x1920.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+.title {
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  line-height: 100%;
+}
+.subtitle {
+  margin-bottom: 42px;
+  font-size: 1.42rem;
 }
 
 .viu-button::part(base) {
