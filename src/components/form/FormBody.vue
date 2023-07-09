@@ -15,15 +15,11 @@ const formData = reactive({
   comments: comments,
 });
 
-const submitForm = () => {
-  console.log("form is submitted");
-};
-
 const inputName = ref(null);
 const formref = ref(null);
 
 const showType = ref(false);
-const getSelectedStuff = () => {
+const getSelectedGender = () => {
   let select = document.getElementById("slSelect");
 
   select.addEventListener("sl-change", () => {
@@ -37,6 +33,10 @@ const getSelectedStuff = () => {
     }
   });
 
+};
+
+const submitForm = () => {
+  console.log("form is submitted");
 };
 
 onMounted(() => {});
@@ -70,7 +70,7 @@ onMounted(() => {});
         clearable
         required
         ref="formref"
-        @click="getSelectedStuff()"
+        @click="getSelectedGender()"
       >
         <sl-option value="male">male</sl-option>
         <sl-option value="female">female</sl-option>

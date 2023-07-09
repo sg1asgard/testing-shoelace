@@ -5,3 +5,11 @@ body {
   font-size: 18px;
   position: relative;
 }
+
+/*
+Resolving Flash of Undefined Custom Elements (FOUCE)
+https://shoelace.style/getting-started/usage#waiting-for-components-to-load
+*/
+:not(:defined) {
+  visibility: hidden;
+}
