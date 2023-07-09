@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted, computed } from "vue";
 
+// init const
 const email = ref(null);
 const name = ref(null);
 const familyName = ref(null);
@@ -8,6 +9,7 @@ const gender = ref(null);
 const genderType = ref(null);
 const comments = ref(null);
 
+// form data to submit
 const formData = reactive({
   email: email,
   name: name,
@@ -17,33 +19,65 @@ const formData = reactive({
   comments: comments,
 });
 
-const inputName = ref(null);
 const formref = ref(null);
 
 const showType = ref(false);
 const getSelectedGender = () => {
   let select = document.getElementById("slSelect");
+  setTimeout(() => {
+    select.addEventListener("sl-change", () => {
+      gender.value = formref.value.value;
 
-  select.addEventListener("sl-change", () => {
-    gender.value = formref.value.value;
-
-    if (gender.value == "other") {
-      showType.value = true;
-    } else {
-      showType.value = false;
-      genderType.value = null;
-    }
-  });
+      if (gender.value == "other") {
+        showType.value = true;
+      } else {
+        showType.value = false;
+        genderType.value = null;
+      }
+    });
+  }, 10);
 };
 
 const dialogOverview = ref(null);
-const submitForm = () => {
-  console.log("form is submitted");
+const myForm = ref(null);
+const formDataCopy = ref(null);
+
+const onSubmit = () => {
+  let theForm = document.querySelector(".input-validation-required");
+  formDataCopy.value = Object.assign({}, formData);
+
+  setTimeout(() => {
+    theForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      showDialog();
+
+      email.value = null;
+      name.value = null;
+      familyName.value = null;
+      gender.value = null;
+      genderType.value = null;
+      comments.value = null;
+    });
+  }, 10);
+};
+
+const onReset = () => {
+  let theForm = document.querySelector(".input-validation-required");
+
+  setTimeout(() => {
+    theForm.addEventListener("reset", (event) => {
+      event.preventDefault();
+      console.log("reset form");
+    });
+  }, 10);
+};
+
+const showDialog = () => {
   let dialog = document.querySelector(".dialog-overview");
   dialog.show();
 
   let closeButton = dialog.querySelector('sl-button[slot="footer"]');
-  closeButton.addEventListener('click', () => dialog.hide());
+  closeButton.addEventListener("click", () => dialog.hide());
 };
 
 onMounted(() => {});
@@ -58,7 +92,12 @@ onMounted(() => {});
     <h1 class="title">the pioneer</h1>
     <h2 class="subtitle">Would you like to know more?</h2> -->
 
-    <form @submit.prevent="submitForm" class="input-validation-required">
+    <form
+      @submit.prevent="onSubmit()"
+      @reset.prevent="onReset()"
+      class="input-validation-required"
+      ref="myForm"
+    >
       <sl-input
         name="email"
         label="Email"
@@ -77,7 +116,6 @@ onMounted(() => {});
         autocomplete="off"
         required
         v-model="name"
-        ref="inputName"
         class="viu-input"
       ></sl-input>
 
@@ -134,14 +172,19 @@ onMounted(() => {});
       <sl-button type="submit" variant="primary" class="viu-button"
         >Submit</sl-button
       >
+      <sl-button type="reset" variant="primary" class="viu-button"
+        >Reset</sl-button
+      >
     </form>
 
     <sl-dialog label="Dialog" class="dialog-overview" ref="dialogOverview">
       <div slot="label">Thank you for your interest!</div>
       <div>
-        <div v-for="item in formData" :key="item">{{ item }}</div>
+        <div v-for="item in formDataCopy" :key="item">{{ item }}</div>
       </div>
-      <sl-button slot="footer" variant="primary" class="viu-button">Close</sl-button>
+      <sl-button slot="footer" variant="primary" class="viu-button"
+        >Close</sl-button
+      >
     </sl-dialog>
   </div>
 </template>
