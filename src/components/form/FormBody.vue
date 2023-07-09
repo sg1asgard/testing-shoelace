@@ -84,12 +84,12 @@ onMounted(() => {});
 
 <template>
   <div class="body-form">
-    <pre>{{ formData }}</pre>
-    <br />
+    <!-- <pre>{{ formData }}</pre>
+    <br /> -->
 
-    <!-- <div class="viu-glasses"></div>
+    <div class="viu-glasses"></div>
     <h1 class="title">the pioneer</h1>
-    <h2 class="subtitle">Would you like to know more?</h2> -->
+    <h2 class="subtitle">Soon in store. Would you like to know more?</h2>
 
     <form
       @submit.prevent="onSubmit()"
@@ -168,9 +168,13 @@ onMounted(() => {});
       <br />
       <br />
       <sl-button type="submit" variant="primary" class="viu-button"
-        >Submit</sl-button
+        >Subscribe</sl-button
       >
-      <sl-button type="reset" variant="primary" class="viu-button"
+      <sl-button
+        type="reset"
+        variant="primary"
+        class="viu-button"
+        style="margin-start: 32px"
         >Reset</sl-button
       >
     </form>
@@ -219,6 +223,7 @@ onMounted(() => {});
   background: var(--sl-color-neutral-0);
   border: solid 1px $black;
   border-radius: 0;
+  text-transform: uppercase;
 }
 
 .viu-button::part(base):hover {
