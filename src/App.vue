@@ -3,18 +3,6 @@ import { RouterLink, RouterView } from "vue-router";
 </script>
 
 <template>
-  <header>
-    <div>
-      <img
-        alt="VIU logo"
-        class="logo"
-        src="@/assets/logo.svg"
-        width="125"
-        height="125"
-      />
-    </div>
-  </header>
-
   <RouterView />
 </template>
 
