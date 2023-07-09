@@ -9,7 +9,9 @@ import FormBody from "@/components/form/FormBody.vue";
 </template>
 
 <style lang="scss" scoped>
-.ctx.body {
-  color: black;
+.ctx {
+  &-body {
+    padding: 0px 32px 32px 32px;
+  }
 }
 </style>
