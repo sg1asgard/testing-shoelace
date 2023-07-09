@@ -1,12 +1,12 @@
 <script setup>
 import { ref, reactive, onMounted, computed } from "vue";
 
-const email = ref("");
-const name = ref("");
-const familyName = ref("");
-const gender = ref("");
-const genderType = ref("");
-const comments = ref("");
+const email = ref(null);
+const name = ref(null);
+const familyName = ref(null);
+const gender = ref(null);
+const genderType = ref(null);
+const comments = ref(null);
 
 const formData = reactive({
   email: email,
@@ -31,13 +31,16 @@ const getSelectedGender = () => {
       showType.value = true;
     } else {
       showType.value = false;
-      genderType.value = "";
+      genderType.value = null;
     }
   });
 };
 
+const dialogOverview = ref(null);
 const submitForm = () => {
   console.log("form is submitted");
+  let dialog = document.querySelector(".dialog-overview");
+  dialog.show();
 };
 
 onMounted(() => {});
@@ -47,7 +50,7 @@ onMounted(() => {});
   <div class="body-form">
     <pre>{{ formData }}</pre>
     <br />
-    
+
     <!-- <div class="viu-glasses"></div>
     <h1 class="title">the pioneer</h1>
     <h2 class="subtitle">Would you like to know more?</h2> -->
@@ -57,6 +60,7 @@ onMounted(() => {});
         name="email"
         label="Email"
         type="email"
+        autocomplete="off"
         required
         v-model="email"
         id="email"
@@ -67,22 +71,24 @@ onMounted(() => {});
       <sl-input
         name="name"
         label="Name"
+        autocomplete="off"
         required
         v-model="name"
         ref="inputName"
         class="viu-input"
       ></sl-input>
-      
+
       <br />
       <sl-input
         name="family_name"
         label="Family Name"
+        autocomplete="off"
         required
         v-model="familyName"
         id="familyName"
         class="viu-input"
       ></sl-input>
-      
+
       <br />
       <sl-select
         id="slSelect"
@@ -102,6 +108,7 @@ onMounted(() => {});
       <sl-input
         name="gbuttonender_option"
         label="Your Gender"
+        autocomplete="off"
         required
         id="genderName"
         class="viu-input"
@@ -125,6 +132,16 @@ onMounted(() => {});
         >Submit</sl-button
       >
     </form>
+
+    <sl-dialog label="Dialog" class="dialog-overview" ref="dialogOverview">
+      <div slot="label">Thank you!</div>
+      <ul>
+        <li v-for="item in formData" :key="item">
+          {{ item }}
+        </li>
+      </ul>
+      <sl-button slot="footer" variant="primary">Close</sl-button>
+    </sl-dialog>
   </div>
 </template>
 
