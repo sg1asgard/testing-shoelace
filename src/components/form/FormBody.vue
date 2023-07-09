@@ -41,6 +41,9 @@ const submitForm = () => {
   console.log("form is submitted");
   let dialog = document.querySelector(".dialog-overview");
   dialog.show();
+
+  let closeButton = dialog.querySelector('sl-button[slot="footer"]');
+  closeButton.addEventListener('click', () => dialog.hide());
 };
 
 onMounted(() => {});
@@ -134,13 +137,11 @@ onMounted(() => {});
     </form>
 
     <sl-dialog label="Dialog" class="dialog-overview" ref="dialogOverview">
-      <div slot="label">Thank you!</div>
-      <ul>
-        <li v-for="item in formData" :key="item">
-          {{ item }}
-        </li>
-      </ul>
-      <sl-button slot="footer" variant="primary">Close</sl-button>
+      <div slot="label">Thank you for your interest!</div>
+      <div>
+        <div v-for="item in formData" :key="item">{{ item }}</div>
+      </div>
+      <sl-button slot="footer" variant="primary" class="viu-button">Close</sl-button>
     </sl-dialog>
   </div>
 </template>
