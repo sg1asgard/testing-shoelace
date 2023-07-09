@@ -9,6 +9,8 @@ const gender = ref(null);
 const genderType = ref(null);
 const comments = ref(null);
 
+const glassesURL = ref('https://shopviu.com/en_int/sunglasses/the-pioneer?color=star-gold-%2F-black')
+
 // form data to submit
 const formData = reactive({
   email: email,
@@ -87,9 +89,15 @@ onMounted(() => {});
     <!-- <pre>{{ formData }}</pre>
     <br /> -->
 
-    <div class="viu-glasses"></div>
+    <a
+      :href="glassesURL"
+      target="_blank"
+      ><div class="viu-glasses">
+      <span>view in shop</span>
+      </div
+    ></a>
     <h1 class="title">the pioneer</h1>
-    <h2 class="subtitle">Soon in store. Would you like to know more?</h2>
+    <h2 class="subtitle">Now in store. Would you like to Bulk Order?</h2>
 
     <form
       @submit.prevent="onSubmit()"
@@ -200,12 +208,28 @@ onMounted(() => {});
 }
 
 .viu-glasses {
+  position: relative;
   width: 100%;
   height: 360px;
   margin-bottom: 32px;
   background: url("https://production-presta-media.shopviu.com/img/product/557/977-the-pioneer-star-gold-black_front_3840x1920.webp");
   background-size: cover;
   background-position: center;
+  > span {
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background-color: $white;
+    color: $black;
+  }
+  &:hover {
+    > span {
+      background-color: $black;
+      color: $white;
+    }
+  }
 }
 
 .title {
