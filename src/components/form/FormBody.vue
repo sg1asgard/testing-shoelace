@@ -239,7 +239,7 @@ onMounted(() => {});
   line-height: 100%;
 }
 .subtitle {
-  margin-bottom: 42px;
+  margin: 4px 0px 42px 0px;
   font-size: 1.42rem;
 }
 
