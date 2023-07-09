@@ -9,7 +9,9 @@ const gender = ref(null);
 const genderType = ref(null);
 const comments = ref(null);
 
-const glassesURL = ref('https://shopviu.com/en_int/sunglasses/the-pioneer?color=star-gold-%2F-black')
+const glassesURL = ref(
+  "https://shopviu.com/en_int/sunglasses/the-pioneer?color=star-gold-%2F-black"
+);
 
 // form data to submit
 const formData = reactive({
@@ -52,6 +54,8 @@ const onSubmit = () => {
       event.preventDefault();
       showDialog();
 
+      theForm.reset();
+
       email.value = null;
       name.value = null;
       familyName.value = null;
@@ -68,7 +72,6 @@ const onReset = () => {
   setTimeout(() => {
     theForm.addEventListener("reset", (event) => {
       event.preventDefault();
-      console.log("reset form");
     });
   }, 10);
 };
@@ -89,13 +92,11 @@ onMounted(() => {});
     <!-- <pre>{{ formData }}</pre>
     <br /> -->
 
-    <a
-      :href="glassesURL"
-      target="_blank"
+    <a :href="glassesURL" target="_blank"
       ><div class="viu-glasses">
-      <span>view in shop</span>
-      </div
-    ></a>
+        <span>view in shop</span>
+      </div></a
+    >
     <h1 class="title">the pioneer</h1>
     <h2 class="subtitle">Now in store. Would you like to Bulk Order?</h2>
 
