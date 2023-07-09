@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted, computed } from "vue";
 
+// init const
 const email = ref(null);
 const name = ref(null);
 const familyName = ref(null);
@@ -8,6 +9,11 @@ const gender = ref(null);
 const genderType = ref(null);
 const comments = ref(null);
 
+const glassesURL = ref(
+  "https://shopviu.com/en_int/sunglasses/the-pioneer?color=star-gold-%2F-black"
+);
+
+// form data to submit
 const formData = reactive({
   email: email,
   name: name,
@@ -17,7 +23,6 @@ const formData = reactive({
   comments: comments,
 });
 
-const inputName = ref(null);
 const formref = ref(null);
 
 const showType = ref(false);
@@ -37,13 +42,46 @@ const getSelectedGender = () => {
 };
 
 const dialogOverview = ref(null);
-const submitForm = () => {
-  console.log("form is submitted");
+const myForm = ref(null);
+const formDataCopy = ref(null);
+
+const onSubmit = () => {
+  let theForm = document.querySelector(".input-validation-required");
+  formDataCopy.value = Object.assign({}, formData);
+
+  setTimeout(() => {
+    theForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      showDialog();
+
+      theForm.reset();
+
+      email.value = null;
+      name.value = null;
+      familyName.value = null;
+      gender.value = null;
+      genderType.value = null;
+      comments.value = null;
+    });
+  }, 10);
+};
+
+const onReset = () => {
+  let theForm = document.querySelector(".input-validation-required");
+
+  setTimeout(() => {
+    theForm.addEventListener("reset", (event) => {
+      event.preventDefault();
+    });
+  }, 10);
+};
+
+const showDialog = () => {
   let dialog = document.querySelector(".dialog-overview");
   dialog.show();
 
   let closeButton = dialog.querySelector('sl-button[slot="footer"]');
-  closeButton.addEventListener('click', () => dialog.hide());
+  closeButton.addEventListener("click", () => dialog.hide());
 };
 
 onMounted(() => {});
@@ -51,14 +89,23 @@ onMounted(() => {});
 
 <template>
   <div class="body-form">
-    <pre>{{ formData }}</pre>
-    <br />
+    <!-- <pre>{{ formData }}</pre>
+    <br /> -->
 
-    <!-- <div class="viu-glasses"></div>
+    <a :href="glassesURL" target="_blank"
+      ><div class="viu-glasses">
+        <span>view in shop</span>
+      </div></a
+    >
     <h1 class="title">the pioneer</h1>
-    <h2 class="subtitle">Would you like to know more?</h2> -->
+    <h2 class="subtitle">Now in store. Would you like to Bulk Order?</h2>
 
-    <form @submit.prevent="submitForm" class="input-validation-required">
+    <form
+      @submit.prevent="onSubmit()"
+      @reset.prevent="onReset()"
+      class="input-validation-required"
+      ref="myForm"
+    >
       <sl-input
         name="email"
         label="Email"
@@ -77,7 +124,6 @@ onMounted(() => {});
         autocomplete="off"
         required
         v-model="name"
-        ref="inputName"
         class="viu-input"
       ></sl-input>
 
@@ -129,19 +175,27 @@ onMounted(() => {});
       ></sl-textarea>
 
       <br />
-      <sl-checkbox required>Yes, I would like to stay informed.</sl-checkbox>
-      <br /><br />
+      <br />
       <sl-button type="submit" variant="primary" class="viu-button"
-        >Submit</sl-button
+        >Subscribe</sl-button
+      >
+      <sl-button
+        type="reset"
+        variant="primary"
+        class="viu-button"
+        style="margin-start: 32px"
+        >Reset</sl-button
       >
     </form>
 
     <sl-dialog label="Dialog" class="dialog-overview" ref="dialogOverview">
       <div slot="label">Thank you for your interest!</div>
       <div>
-        <div v-for="item in formData" :key="item">{{ item }}</div>
+        <div v-for="item in formDataCopy" :key="item">{{ item }}</div>
       </div>
-      <sl-button slot="footer" variant="primary" class="viu-button">Close</sl-button>
+      <sl-button slot="footer" variant="primary" class="viu-button"
+        >Close</sl-button
+      >
     </sl-dialog>
   </div>
 </template>
@@ -155,12 +209,28 @@ onMounted(() => {});
 }
 
 .viu-glasses {
+  position: relative;
   width: 100%;
   height: 360px;
   margin-bottom: 32px;
   background: url("https://production-presta-media.shopviu.com/img/product/557/977-the-pioneer-star-gold-black_front_3840x1920.webp");
   background-size: cover;
   background-position: center;
+  > span {
+    display: inline-block;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    padding: 8px 16px;
+    background-color: $white;
+    color: $black;
+  }
+  &:hover {
+    > span {
+      background-color: $black;
+      color: $white;
+    }
+  }
 }
 
 .title {
@@ -170,7 +240,7 @@ onMounted(() => {});
   line-height: 100%;
 }
 .subtitle {
-  margin-bottom: 42px;
+  margin: 4px 0px 42px 0px;
   font-size: 1.42rem;
 }
 
@@ -178,6 +248,7 @@ onMounted(() => {});
   background: var(--sl-color-neutral-0);
   border: solid 1px $black;
   border-radius: 0;
+  text-transform: uppercase;
 }
 
 .viu-button::part(base):hover {
