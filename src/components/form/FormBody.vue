@@ -1,6 +1,7 @@
 <script setup>
 import { ref, reactive, onMounted, computed } from "vue";
 
+const email = ref("");
 const name = ref("");
 const familyName = ref("");
 const gender = ref("");
@@ -8,6 +9,7 @@ const genderType = ref("");
 const comments = ref("");
 
 const formData = reactive({
+  email: email,
   name: name,
   family_name: familyName,
   gender: gender,
@@ -52,6 +54,17 @@ onMounted(() => {});
 
     <form @submit.prevent="submitForm" class="input-validation-required">
       <sl-input
+        name="email"
+        label="Email"
+        type="email"
+        required
+        v-model="email"
+        id="email"
+        class="viu-input"
+      ></sl-input>
+      <br />
+
+      <sl-input
         name="name"
         label="Name"
         required
@@ -59,6 +72,7 @@ onMounted(() => {});
         ref="inputName"
         class="viu-input"
       ></sl-input>
+      
       <br />
       <sl-input
         name="family_name"
@@ -68,8 +82,8 @@ onMounted(() => {});
         id="familyName"
         class="viu-input"
       ></sl-input>
+      
       <br />
-
       <sl-select
         id="slSelect"
         label="Gender"
@@ -105,7 +119,7 @@ onMounted(() => {});
       ></sl-textarea>
 
       <br />
-      <sl-checkbox required>Check me before submitting</sl-checkbox>
+      <sl-checkbox required>Yes, I would like to stay informed.</sl-checkbox>
       <br /><br />
       <sl-button type="submit" variant="primary" class="viu-button"
         >Submit</sl-button
