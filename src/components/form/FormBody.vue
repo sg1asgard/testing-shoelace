@@ -27,6 +27,8 @@ const showType = ref(false);
 const getSelectedGender = () => {
   let select = document.getElementById("slSelect");
 
+  console.log("validity", select.checkValidity());
+
   select.addEventListener("sl-change", () => {
     gender.value = formref.value.value;
 
@@ -87,7 +89,6 @@ onMounted(() => {});
 
 <template>
   <div class="body-form">
-    <pre>{{ formData }}</pre>
     <form
       @submit.prevent="onSubmit()"
       @reset.prevent="onReset()"
