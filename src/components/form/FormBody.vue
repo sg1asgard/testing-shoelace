@@ -150,7 +150,7 @@ onMounted(() => {});
         required
         id="genderName"
         class="viu-input"
-        :style="`${showType ? 'display: block' : 'display: none'}`"
+        v-show="showType"
         v-model="genderType"
       ></sl-input>
 
