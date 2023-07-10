@@ -9,6 +9,8 @@ const gender = ref(null);
 const genderType = ref(null);
 const comments = ref(null);
 
+const gender2 = ref(null);
+
 // form data to submit
 const formData = reactive({
   email: email,
@@ -146,7 +148,7 @@ onMounted(() => {});
         required
         id="genderName"
         class="viu-input"
-        v-if="showType"
+        v-show="showType"
         v-model="genderType"
       ></sl-input>
 
