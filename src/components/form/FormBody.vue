@@ -23,6 +23,8 @@ const formData = reactive({
 
 const formref = ref(null);
 
+// getSelectedGender() is not need it any longer
+// if we use :value="gender"  @sl-change="gender = $event.target.value" at the level of sl-select
 const showType = ref(false);
 const getSelectedGender = () => {
   let select = document.getElementById("slSelect");
@@ -87,6 +89,7 @@ onMounted(() => {});
 
 <template>
   <div class="body-form">
+  <pre>{{ formData }}</pre>
     <form
       @submit.prevent="onSubmit()"
       @reset.prevent="onReset()"
@@ -133,7 +136,8 @@ onMounted(() => {});
         required
         ref="formref"
         class="viu-select"
-        @click="getSelectedGender()"
+        :value="gender"
+        @sl-change="gender = $event.target.value"
       >
         <sl-option value="male">male</sl-option>
         <sl-option value="female">female</sl-option>
@@ -148,7 +152,7 @@ onMounted(() => {});
         required
         id="genderName"
         class="viu-input"
-        v-show="showType"
+        v-show="gender == 'other'"
         v-model="genderType"
       ></sl-input>
 
